@@ -1,0 +1,202 @@
+var chartcount = 0;
+var config={};
+var chartData = {};
+var chartOptions ={};
+function getChart() {
+	var result = '';
+	result += '<section id="chartjs-bar-charts">';
+	result += '<div class="row">';
+	result += '<div class="col-xs-12">';
+	result += '<div class="card">';
+	result += '<div class="card-header">';
+	result += '<h4 class="card-title">Bar Chart</h4>';
+	result += '<a class="heading-elements-toggle"><i';
+	result += 'class="icon-ellipsis font-medium-3"></i></a>';
+	result += '<div class="heading-elements">';
+	result += '</div>';
+	result += '</div>';
+	result += '<div class="card-body collapse in">';
+	result += '<div class="card-block">';
+	result += '<canvas id="bar-chart'+chartcount+'" height="400"></canvas>';
+	result += '</div>';
+	result += '</div>';
+	result += '</div>';
+	result += '</div>';
+	result += '</div>';
+	result += '</section>';
+
+	$('#chartBody').append(result);
+
+	var ctx = $("#bar-chart"+chartcount);
+	
+	var lineChart = new Chart(ctx, config);
+	chartcount++;
+}
+
+function chartconfig(data){
+	chartOptions = {
+
+			elements : {
+				rectangle : {
+					borderWidth : 2,
+					borderColor : 'rgb(0, 255, 0)',
+					borderSkipped : 'left'
+				}
+			},
+			responsive : true,
+			maintainAspectRatio : false,
+			responsiveAnimationDuration : 500,
+			legend : {
+				position : 'top',
+			},
+			scales : {
+				xAxes : [ {
+					display : true,
+					gridLines : {
+						color : "#f3f3f3",
+						drawTicks : false,
+					},
+					scaleLabel : {
+						display : true,
+					}
+				} ],
+				yAxes : [ {
+					display : true,
+					gridLines : {
+						color : "#f3f3f3",
+						drawTicks : false,
+					},
+					scaleLabel : {
+						display : true,
+					}
+				} ]
+			},
+			title : {
+				display : false,
+				text : 'Chart.js Horizontal Bar Chart'
+			}
+		};
+			chartData = {
+					labels : [ "January", "February", "March", "April" ],
+					datasets : [ {
+						label : "My First dataset",
+						data : [ 65, 59, 80, 81 ],
+						backgroundColor : "#673AB7",
+						hoverBackgroundColor : "rgba(103,58,183,.9)",
+						borderColor : "transparent"
+					}, {
+						label : "My Second dataset",
+						data : [ 28, 48, 40, 19 ],
+						backgroundColor : "#E91E63",
+						hoverBackgroundColor : "rgba(233,30,99,.9)",
+						borderColor : "transparent"
+					} ]
+				};
+			
+			 config = {
+						type : 'horizontalBar',
+
+						// Chart Options
+						options : chartOptions,
+
+						data : chartData
+					};
+			 
+			 console.log(JSON.stringify(config));
+				console.log(JSON.stringify(chartData));
+				console.log(JSON.stringify(chartOptions));
+				
+			
+				getChart();
+}
+
+function chartconfig(){
+	chartOptions = {
+
+			elements : {
+				rectangle : {
+					borderWidth : 2,
+					borderColor : 'rgb(0, 255, 0)',
+					borderSkipped : 'left'
+				}
+			},
+			responsive : true,
+			maintainAspectRatio : false,
+			responsiveAnimationDuration : 500,
+			legend : {
+				position : 'top',
+			},
+			scales : {
+				xAxes : [ {
+					display : true,
+					gridLines : {
+						color : "#f3f3f3",
+						drawTicks : false,
+					},
+					scaleLabel : {
+						display : true,
+					}
+				} ],
+				yAxes : [ {
+					display : true,
+					gridLines : {
+						color : "#f3f3f3",
+						drawTicks : false,
+					},
+					scaleLabel : {
+						display : true,
+					}
+				} ]
+			},
+			title : {
+				display : false,
+				text : 'Chart.js Horizontal Bar Chart'
+			}
+		};
+			chartData = {
+					labels : [ "January", "February", "March", "April" ],
+					datasets : [ {
+						label : "My First dataset",
+						data : [ 65, 59, 80, 81 ],
+						backgroundColor : "#673AB7",
+						hoverBackgroundColor : "rgba(103,58,183,.9)",
+						borderColor : "transparent"
+					}, {
+						label : "My Second dataset",
+						data : [ 28, 48, 40, 19 ],
+						backgroundColor : "#E91E63",
+						hoverBackgroundColor : "rgba(233,30,99,.9)",
+						borderColor : "transparent"
+					} ]
+				};
+			
+			 config = {
+						type : 'horizontalBar',
+
+						// Chart Options
+						options : chartOptions,
+
+						data : chartData
+					};
+			 
+			 console.log(JSON.stringify(config));
+				console.log(JSON.stringify(chartData));
+				console.log(JSON.stringify(chartOptions));
+				
+			
+				getChart();
+}
+
+function getData() {
+	$.ajax({
+		url : 'hadoopChartdata',
+		dataType : "json",
+		success : function(data) {
+			alert('success');
+			chartconfig(data);
+		},
+		error : function() {
+			alert('error');
+		}
+	})
+};

@@ -1,0 +1,56 @@
+package com.sds.finalpj.Controller;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+public class HadoopChartController {
+	
+	@RequestMapping(value = "/hadoopChart", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView hadoopChart(ModelAndView mv) {
+		
+		mv.addObject("center","hadoopChart");
+		mv.setViewName("index");
+		return mv;
+		
+	}
+	
+	
+
+	@RequestMapping(value = "/hadoopChartdata", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView hadoopChartdata(ModelAndView mv, HttpServletRequest request, HttpServletResponse response) {
+		String gender = response.get
+			try {
+				Class.forName("org.apache.hive.jdbc.HiveDriver");
+				Connection conn = DriverManager.getConnection("jdbc:hive2://52.78.187.212:10000/default", "root", "111111");
+				PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Test WHERE GENDER=?");
+				stmt.setString(1, gender);
+				ResultSet rs = stmt.executeQuery();
+				while (rs.next()) {
+					System.out.println(rs.getString(1));
+				}
+				conn.close();
+				System.out.println("Success....");
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		
+		return mv;
+		
+	}
+
+
+}
